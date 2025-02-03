@@ -30,7 +30,8 @@ export default tseslint.config(
           "allowTernary": true,
           "allowTaggedTemplates": true
         }
-      ]
+      ],
+      'eol-last': ['error', 'always'],
     },
   },
 );
