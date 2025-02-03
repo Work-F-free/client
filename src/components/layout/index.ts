@@ -1,3 +1,3 @@
-import { AggregationLayout  } from "./aggregation-layout.tsx";
+import { AggregationLayout } from "./aggregation-layout.tsx";
 
 export { AggregationLayout };

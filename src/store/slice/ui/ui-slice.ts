@@ -1,9 +1,9 @@
-import {UIState} from "./type";
-import {createSlice} from "@reduxjs/toolkit";
+import { UIState } from "./type";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialUiState: UIState = {
   authModalOpen: false,
-}
+};
 
 const uiSlice = createSlice({
   name: "ui",
@@ -11,10 +11,9 @@ const uiSlice = createSlice({
   reducers: {
     toggleAuthModalOpen: (state) => {
       state.authModalOpen = !state.authModalOpen;
-      console.log(state.authModalOpen);
-    }
-  }
-})
+    },
+  },
+});
 
-export const {toggleAuthModalOpen} = uiSlice.actions;
+export const { toggleAuthModalOpen } = uiSlice.actions;
 export default uiSlice.reducer;
