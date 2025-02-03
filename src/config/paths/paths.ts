@@ -1,5 +1,12 @@
 export const paths = {
   lending: {
-    path: '/',
+    path: "/",
+  },
+
+  app: {
+    path: "/app",
+    profile: function () {
+      return `${this.path}/profile`;
+    },
   },
 };

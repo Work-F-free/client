@@ -1,12 +1,14 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { Header } from "@/components/header";
+import { ModalAuth } from "@/feature/auth";
 
 export const AggregationLayout = () => {
   return (
-      <>
-        <header>
-          AggregationLayout
-        </header>
-        <Outlet/>
-      </>
+    <>
+      <Header />
+      <Outlet />
+
+      <ModalAuth />
+    </>
   );
 };
