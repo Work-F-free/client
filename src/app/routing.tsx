@@ -42,6 +42,13 @@ export const CreateAppRouter = () =>
             return { element: <module.default /> };
           },
         },
+        {
+          path: paths.app.coworking(),
+          lazy: async () => {
+            const module = await import("./router/app/coworking.tsx");
+            return { element: <module.default /> };
+          },
+        },
       ],
     },
   ]);
