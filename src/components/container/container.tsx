@@ -8,6 +8,7 @@ const containerVariants = cva("", {
     variant: {
       default: "container mx-auto px-4",
       center: "h-screen flex flex-col items-center justify-center",
+      sidebar: "flex flex-col gap-2 px-4 overflow-hidden w-full",
     },
   },
 });
