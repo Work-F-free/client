@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '../ui/carousel';
 import { CoworkingCard } from '../coworking-card';
 import { OfferCard, Theme } from '../offer-card';
@@ -12,7 +12,7 @@ interface RecommendationProps {
 
 const quantity = 10;
 
-export const Recommendation: FC<RecommendationProps> = memo(({ className }) => {
+export const Recommendation: FC<RecommendationProps> = ({ className }) => {
   return (
     <div className={cn('px-12 relative', className)}>
       <Title text={'Подобрали для вас'} size="md" className="mb-4 font-bold" />
@@ -53,4 +53,4 @@ export const Recommendation: FC<RecommendationProps> = memo(({ className }) => {
     </div>
 
   );
-})
+}
