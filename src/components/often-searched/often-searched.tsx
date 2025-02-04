@@ -32,7 +32,7 @@ export const OftenSearched: React.FC<OftenSearchedProps> = ({ className }) => {
   return (
     <div className={cn(className)}>
       <Title text={'Часто ищут'} size="md" className="mb-2 font-bold" />
-      <div className='grid md:grid-cols-2 lg:grid-cols-4  gap-4 '>  {
+      <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 '>  {
         list.map((item) => (
           <Link to={item.path}>
             <div className="h-[100px] relative overflow-hidden rounded">
