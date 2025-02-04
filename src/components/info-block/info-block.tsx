@@ -33,8 +33,8 @@ export const InfoBlock: FC<InfoBlockProps> = (({ className }) => {
     <div className={cn(className)}>
 
       <div className='flex gap-4 mb-6'>
-        <div className="hidden xl:block w-[260px] relative overflow-hidden rounded">
-          <img className="w-full object-cover object-center h-full absolute top-0 " src='/buildings.png' alt='' />
+        <div className="hidden xl:block w-[350px] relative overflow-hidden rounded">
+          <img className="w-full object-cover object-center h-full absolute top-0 " src='/notebook.png' alt='' />
         </div>
         <div>
           <Title text={'Весь функционал в удобном личном кабинете'} size="md" className="mb-2 font-bold" />
@@ -52,7 +52,7 @@ export const InfoBlock: FC<InfoBlockProps> = (({ className }) => {
               );
             })}
           </div>
-      <Button className='px-14'>Регистрация</Button>
+          <Button className='px-14'>Регистрация</Button>
         </div>
       </div>
     </div>

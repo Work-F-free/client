@@ -27,15 +27,13 @@ export const CoworkingCard: React.FC<Props> = ({
           <img className="w-full object-cover object-left-bottom h-full absolute top-0" src={imageUrl} alt={name} />
         </div>
         <div className="p-4">
-
           <Title text={name} size="xs" className="mb-1 font-light text-blue-600" />
-
           <div className='flex gap-2'>
             <span className="text-[16px] flex gap-1  text-yellow-400">
               <Star size={20} fill="#FFBA18" strokeWidth={0} />
               4.6
             </span>
-            <span >
+            <span>
               {additions.map((addition, index) => (
                 <span key={index} className="text-[16px] font-light inline-flex
                 ">
