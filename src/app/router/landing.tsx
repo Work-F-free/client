@@ -3,7 +3,7 @@ import { Banner } from '@/components/banner';
 import { Recommendation } from '@/components/recommendation/recommendation';
 import { OftenSearched } from '@/components/often-searched/often-searched';
 import { InfoBlock } from '@/components/info-block/info-block';
-import { CoworkingMap } from '@/app/features/coworking-map';
+import { CoworkingMap } from '@/feature/map';
 
 const Landing = () => { 
   return (
