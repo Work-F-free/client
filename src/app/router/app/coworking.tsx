@@ -41,6 +41,10 @@ const Coworking = () => {
 
   return (
     <section className="flex flex-col gap-6">
+      <div className="h-48 w-full bg-gray-300 flex flex-col items-center justify-center rounded">
+        <p>Фото ковворикнга тут будет и его можно поменять</p>
+      </div>
+
       <CoworkingConfig />
       <PlanView mode={"editor"} initalPlane={examplePlanCleint} />
     </section>

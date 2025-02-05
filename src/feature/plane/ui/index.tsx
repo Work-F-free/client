@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { Button } from "@/components/ui/button";
+import { Title } from "@/components/title";
+import { setPlaneData } from "@/store/slice/coworking/coworking-slice";
 
 import { TPlane, SeatType, TSeat, TMode } from "../type/type";
 import { usePlane } from "../hooks/usePlan";
@@ -21,10 +24,10 @@ interface PlanViewProps {
 }
 
 export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
+  const dispatch = useDispatch();
   const { plane, addSeat, updateSeat, savePlanToServer, setPlanBackground } =
     usePlane(initalPlane);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
-
   const [selectedSeat, setSelectedSeat] = useState<TSeat | undefined>();
 
   const handleCanvasClick = (seat: TSeat) => {
@@ -37,6 +40,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
     reader.onload = (e) => {
       const background = e.target?.result as string;
       setPlanBackground(background);
+      dispatch(setPlaneData({ ...plane, background }));
     };
     reader.readAsDataURL(file);
   };
@@ -54,6 +58,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
       };
 
       addSeat(newSeat);
+      dispatch(setPlaneData({ ...plane, seats: [...plane.seats, newSeat] }));
     }
   };
 
@@ -68,7 +73,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
       <div className="flex flex-col items-start gap-4">
         {mode === "editor" && (
           <>
-            <h4 className="text-2xl font-medium">Планировка коворкинга</h4>
+            <Title text="Планировка коворкинга" className="font-medium" />
 
             <div className="flex flex-col w-full md:flex-row items-center gap-4">
               <div className="flex flex-col w-full md:flex-row  gap-2">
