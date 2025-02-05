@@ -25,8 +25,14 @@ interface PlanViewProps {
 
 export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
   const dispatch = useDispatch();
-  const { plane, addSeat, updateSeat, savePlanToServer, setPlanBackground } =
-    usePlane(initalPlane);
+  const {
+    plane,
+    addSeat,
+    updateSeat,
+    savePlanToServer,
+    setPlanBackground,
+    removeSeat,
+  } = usePlane(initalPlane);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [selectedSeat, setSelectedSeat] = useState<TSeat | undefined>();
 
@@ -68,13 +74,38 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
     }
   };
 
+  const handleSeatMiddleClick = (seatId: string) => {
+    console.log("Двойной клик на точке:", seatId);
+
+    if (mode === "editor") {
+      removeSeat(seatId);
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col items-start gap-4">
         {mode === "editor" && (
-          <>
-            <Title text="Планировка коворкинга" className="font-medium" />
+          <Title text="Планировка коворкинга" className="font-medium" />
+        )}
 
+        <div className="w-full">
+          {mode === "editor" && (
+            <ImageUploader onImageUpload={handleImageUpload} />
+          )}
+          <Canvas
+            mode={mode}
+            background={plane.background}
+            seats={plane.seats}
+            onSeatMiddleClick={handleSeatMiddleClick}
+            onSeatClick={handleCanvasClick}
+            onSeatDragEnd={handleSeatDragEnd}
+            onDrop={handleDrop}
+          />
+        </div>
+
+        {mode === "editor" && (
+          <>
             <div className="flex flex-col w-full md:flex-row items-center gap-4">
               <div className="flex flex-col w-full md:flex-row  gap-2">
                 {seatTypes.map((seatType) => (
@@ -97,20 +128,6 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
             </div>
           </>
         )}
-
-        <div className="w-full">
-          {mode === "editor" && (
-            <ImageUploader onImageUpload={handleImageUpload} />
-          )}
-          <Canvas
-            mode={mode}
-            background={plane.background}
-            seats={plane.seats}
-            onSeatClick={handleCanvasClick}
-            onSeatDragEnd={handleSeatDragEnd}
-            onDrop={handleDrop}
-          />
-        </div>
       </div>
       <ModalCanvas
         setPlane={updateSeat}
