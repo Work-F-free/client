@@ -47,7 +47,7 @@ export const CoworkingMap: FC<CoworkingMapProps> = ({ className }) => {
         <Map
           state={mapOptions}
           width="100%"
-          height="80vh"
+          height="80vh" 
         >
           {coworkingData.map((item) => (
             <Placemark
