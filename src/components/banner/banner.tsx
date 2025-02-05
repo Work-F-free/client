@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { CoworkingSearch } from '@/feature/search';
+import { CoworkingMainFilter } from '@/feature/search';
 import { Title } from '../title';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Geolocation } from '@/feature/geolocation';
- 
 
-export const Banner: FC = () => {  
+
+export const Banner: FC = () => {
   return (
     <div className="h-[650px] md:h-[450px] relative overflow-hidden rounded">
       <Geolocation className='absolute z-10 m-1 sm:m-6' />
@@ -25,8 +25,8 @@ export const Banner: FC = () => {
 
       <div className='absolute h-full w-full z-10'>
         <div className='flex flex-col p-6 gap-4 h-full items-center justify-center  '>
-          <Title text={'Если выбор коворкинга, то WORK FOR FREE '} size="lg" className="font-semibold  text-center text-white" />
-          <CoworkingSearch />
+          <Title text={'Если выбор коворкинга, то WORK FOR FREE '} size="lg" className="font-semibold text-center text-white" />
+          <CoworkingMainFilter />
         </div>
       </div>
     </div>
