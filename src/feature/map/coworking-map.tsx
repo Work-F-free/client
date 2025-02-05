@@ -2,7 +2,6 @@ import { cn } from '@/lib/shadcn/utils';
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { FC } from 'react';
 
-
 interface CoworkingMapProps {
   className?: string
 }
