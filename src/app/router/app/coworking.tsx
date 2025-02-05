@@ -15,7 +15,7 @@ const examplePlanCleint: TPlane = {
       color: "#ef4444",
       coord_x: 100,
       coord_y: 100,
-      capasity: 1,
+      capacity: 1,
       price: 500,
     },
     {
@@ -24,16 +24,10 @@ const examplePlanCleint: TPlane = {
       color: "#22c55e",
       coord_x: 200,
       coord_y: 200,
-      capasity: 4,
+      capacity: 4,
       price: 2000,
     },
   ],
-};
-
-const examplePlaneEditor: TPlane = {
-  id: "new",
-  background: "",
-  seats: [],
 };
 
 const Coworking = () => {
@@ -48,7 +42,7 @@ const Coworking = () => {
   return (
     <section className="flex flex-col gap-6">
       <CoworkingConfig />
-      <PlanView mode={"client"} initalPlane={examplePlanCleint} />
+      <PlanView mode={"editor"} initalPlane={examplePlanCleint} />
     </section>
   );
 };

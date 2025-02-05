@@ -49,7 +49,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
         color,
         coord_x: x,
         coord_y: y,
-        capasity: 1,
+        capacity: 1,
         price: 0,
       };
 
@@ -68,7 +68,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
       <div className="flex flex-col items-start gap-4">
         {mode === "editor" && (
           <>
-            <h4 className="text-2xl font-medium">Планировка ковворкинга</h4>
+            <h4 className="text-2xl font-medium">Планировка коворкинга</h4>
 
             <div className="flex flex-col w-full md:flex-row items-center gap-4">
               <div className="flex flex-col w-full md:flex-row  gap-2">
@@ -82,7 +82,11 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
                 ))}
               </div>
 
-              <Button className={"w-full md:w-auto"} onClick={savePlanToServer}>
+              <Button
+                disabled={plane.background === ""}
+                className={"w-full md:w-auto"}
+                onClick={savePlanToServer}
+              >
                 Сохранить план
               </Button>
             </div>
@@ -104,6 +108,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
         </div>
       </div>
       <ModalCanvas
+        setPlane={updateSeat}
         isOpen={modalIsOpen}
         setIsOpen={setIsOpen}
         seat={selectedSeat}

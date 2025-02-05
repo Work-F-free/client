@@ -6,7 +6,7 @@ export type TSeat = {
   color: string;
   coord_x?: number;
   coord_y?: number;
-  capasity: number;
+  capacity: number;
   price: number;
 };
 
