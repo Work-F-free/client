@@ -2,10 +2,11 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Layer, Stage, Image } from "react-konva";
 import Konva from "konva";
 
-import { SeatType, TSeat } from "../../type/type";
 import { Seat } from "./seat";
+import { SeatType, TMode, TSeat } from "../../type/type";
 
 interface CanvasProps {
+  mode: TMode;
   background: string;
   seats: TSeat[];
   onSeatClick: (seat: TSeat) => void;
@@ -16,6 +17,7 @@ interface CanvasProps {
 export const Canvas: FC<CanvasProps> = ({
   background,
   seats,
+  mode,
   onSeatClick,
   onSeatDragEnd,
   onDrop,
@@ -32,27 +34,23 @@ export const Canvas: FC<CanvasProps> = ({
   return (
     <div
       onDrop={(e) => {
-        // TODO ---- Лютая говняшка переделать
+        if (mode) {
+          e.preventDefault();
+          if (stageRef.current) {
+            const pointerPosition = stageRef.current.getPointerPosition();
 
-        e.preventDefault();
-        if (stageRef.current) {
-          // Получаем координаты мыши относительно документа
-          const pointerPosition = stageRef.current.getPointerPosition();
-          if (pointerPosition) {
-            // Получаем положение канваса на странице
-            const stageContainer = stageRef.current.container();
-            const rect = stageContainer.getBoundingClientRect();
+            if (pointerPosition) {
+              const stageContainer = stageRef.current.container();
+              const rect = stageContainer.getBoundingClientRect();
 
-            // Вычисляем координаты относительно канваса
-            const x = pointerPosition.x + rect.left;
-            const y = pointerPosition.y + rect.top;
+              const x = pointerPosition.x + rect.left;
+              const y = pointerPosition.y + rect.top;
 
-            // Получаем тип и цвет из данных перетаскивания
-            const type = e.dataTransfer.getData("type") as SeatType;
-            const color = e.dataTransfer.getData("color");
+              const type = e.dataTransfer.getData("type") as SeatType;
+              const color = e.dataTransfer.getData("color");
 
-            // Вызываем onDrop с правильными координатами
-            onDrop(x, y, type, color);
+              onDrop(x, y, type, color);
+            }
           }
         }
       }}
@@ -68,10 +66,11 @@ export const Canvas: FC<CanvasProps> = ({
           {image && <Image image={image} />}
           {seats.map((seat) => (
             <Seat
-              key={seat.id}
+              key={seat.seat_n}
+              mode={mode}
               seat={seat}
               onClick={() => onSeatClick(seat)}
-              onDragEnd={(x, y) => onSeatDragEnd(seat.id, x, y)}
+              onDragEnd={(x, y) => onSeatDragEnd(seat.seat_n, x, y)}
             />
           ))}
         </Layer>

@@ -1,16 +1,13 @@
 import { FC, useState } from "react";
-import { TPlane, SeatType, TSeat } from "../type/type";
+
+import { Button } from "@/components/ui/button";
+
+import { TPlane, SeatType, TSeat, TMode } from "../type/type";
 import { usePlane } from "../hooks/usePlan";
 import { ImageUploader } from "./form/image-uploader";
 import { Canvas } from "./canvas/canvas";
-import { Button } from "@/components/ui/button";
 import { SeatTypeComp } from "./form/seat-type";
-
-const initialPlan: TPlane = {
-  id: "1",
-  seats: [],
-  background: "",
-};
+import { ModalCanvas } from "./modal/modal-canvas";
 
 const seatTypes: { type: SeatType; color: string }[] = [
   { type: "workplace", color: "#ef4444" },
@@ -18,17 +15,21 @@ const seatTypes: { type: SeatType; color: string }[] = [
   { type: "conference_room", color: "#0ea5e9" },
 ];
 
-export const PlanView: FC = () => {
+interface PlanViewProps {
+  mode: TMode;
+  initalPlane: TPlane;
+}
+
+export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
   const { plane, addSeat, updateSeat, savePlanToServer, setPlanBackground } =
-    usePlane(initialPlan);
+    usePlane(initalPlane);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
   const [selectedSeat, setSelectedSeat] = useState<TSeat | undefined>();
 
   const handleCanvasClick = (seat: TSeat) => {
-    // Для откртия модалок под бронирвание
     setSelectedSeat(seat);
-
-    console.log(selectedSeat);
+    setIsOpen(!modalIsOpen);
   };
 
   const handleImageUpload = (file: File) => {
@@ -41,51 +42,73 @@ export const PlanView: FC = () => {
   };
 
   const handleDrop = (x: number, y: number, type: SeatType, color: string) => {
-    const newSeat: TSeat = {
-      id: Math.random().toString(),
-      type,
-      color,
-      coord_x: x,
-      coord_y: y,
-    };
-    addSeat(newSeat);
+    if (mode === "editor") {
+      const newSeat: TSeat = {
+        seat_n: Math.random().toString(),
+        type,
+        color,
+        coord_x: x,
+        coord_y: y,
+        capasity: 1,
+        price: 0,
+      };
+
+      addSeat(newSeat);
+    }
   };
 
-  const handleSeatDragEnd = (seatId: string, x: number, y: number) => {
-    updateSeat(seatId, { coord_x: x, coord_y: y });
+  const handleSeatDragEnd = (seat_num: string, x: number, y: number) => {
+    if (mode === "editor") {
+      updateSeat(seat_num, { coord_x: x, coord_y: y });
+    }
   };
 
   return (
-    <div className="flex flex-col items-start gap-4">
-      <h4 className="text-2xl font-medium">Планировка ковворкинга</h4>
+    <>
+      <div className="flex flex-col items-start gap-4">
+        {mode === "editor" && (
+          <>
+            <h4 className="text-2xl font-medium">Планировка ковворкинга</h4>
 
-      <div className="flex flex-col w-full md:flex-row items-center gap-4">
-        <div className="flex flex-col w-full md:flex-row  gap-2">
-          {seatTypes.map((seatType) => (
-            <SeatTypeComp
-              key={seatType.type}
-              type={seatType.type}
-              color={seatType.color}
-              onDragStart={() => {}}
-            />
-          ))}
+            <div className="flex flex-col w-full md:flex-row items-center gap-4">
+              <div className="flex flex-col w-full md:flex-row  gap-2">
+                {seatTypes.map((seatType) => (
+                  <SeatTypeComp
+                    key={seatType.type}
+                    type={seatType.type}
+                    color={seatType.color}
+                    onDragStart={() => {}}
+                  />
+                ))}
+              </div>
+
+              <Button className={"w-full md:w-auto"} onClick={savePlanToServer}>
+                Сохранить план
+              </Button>
+            </div>
+          </>
+        )}
+
+        <div className="w-full">
+          {mode === "editor" && (
+            <ImageUploader onImageUpload={handleImageUpload} />
+          )}
+          <Canvas
+            mode={mode}
+            background={plane.background}
+            seats={plane.seats}
+            onSeatClick={handleCanvasClick}
+            onSeatDragEnd={handleSeatDragEnd}
+            onDrop={handleDrop}
+          />
         </div>
-
-        <Button className={"w-full md:w-auto"} onClick={savePlanToServer}>
-          Сохранить план
-        </Button>
       </div>
-
-      <div className="w-full">
-        <ImageUploader onImageUpload={handleImageUpload} />
-        <Canvas
-          background={plane.background}
-          seats={plane.seats}
-          onSeatClick={handleCanvasClick}
-          onSeatDragEnd={handleSeatDragEnd}
-          onDrop={handleDrop}
-        />
-      </div>
-    </div>
+      <ModalCanvas
+        isOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        seat={selectedSeat}
+        mode={mode}
+      />
+    </>
   );
 };

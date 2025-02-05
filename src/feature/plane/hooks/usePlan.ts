@@ -17,7 +17,7 @@ export const usePlane = (initalPlane: TPlane) => {
       setPlane((prevPlan) => ({
         ...prevPlan,
         seats: prevPlan.seats.map((seat) =>
-          seat.id === seatId ? { ...seat, ...updatedSeat } : seat,
+          seat.seat_n === seatId ? { ...seat, ...updatedSeat } : seat,
         ),
       }));
     },
