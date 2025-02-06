@@ -28,7 +28,7 @@ export const CoworkingMainFilter = () => {
     };
 
     const queryString = new URLSearchParams(queryStringData).toString();
-    navigate(paths.agrageted.coworking_list() + '?' + queryString);
+    navigate(paths.agrageted.coworking_list());
   };
 
   return (

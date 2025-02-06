@@ -130,11 +130,11 @@ const Coworking = () => {
       </div>
       <div id="book" ref={bookRef} className='mt-8'>
 
-      <PlanView mode={"client"} initalPlane={examplePlanCleint} />
+        <PlanView mode={"client"} initalPlane={examplePlanCleint} />
       </div>
 
       <div id="map" ref={mapRef} >
-        <CoworkingChunk className='my-8' geometrylist={[generateCoordinates()]} />
+        <CoworkingChunk className='my-8' geometrylist={[{ geometry: generateCoordinates(), id: 1 }]} />
       </div>
     </Container>
   );
