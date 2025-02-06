@@ -4,7 +4,6 @@ import { List } from '@/feature/list/list';
 const CoworkingList = () => {
   return (
     <Container variant={'default'}>
-
       <List />
     </Container>
   );

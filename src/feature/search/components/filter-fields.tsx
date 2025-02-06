@@ -47,7 +47,7 @@ export const FilterFields: React.FC<FilterFieldsProps> = ({ form }) => {
         control={form.control}
         name="types"
         render={({ field }) => (
-          <FormItem className="flex flex-col w-full">
+          <FormItem className="flex flex-col min-w-[250px] w-full">
             <FormLabel>Тип рабочего места</FormLabel>
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="focus:ring-0 focus:ring-offset-0">

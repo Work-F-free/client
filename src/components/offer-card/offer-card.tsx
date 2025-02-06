@@ -15,14 +15,12 @@ interface Props {
   theme: Theme
   title: string;
   button: string;
-  path: string;
   className?: string
 }
 export const OfferCard: React.FC<Props> = ({
   theme,
   title,
   button,
-  path,
   className,
 }) => {
   return (
@@ -33,8 +31,8 @@ export const OfferCard: React.FC<Props> = ({
         </div>
         <Title size='sm' text={title} className={` ${theme === Theme.BLUE ? 'text-white' : ''}`} />
       </div>
-      <Link to={path}>
-        <Button className={`w-full ${theme === Theme.BLUE ? 'dark' : ''}`}>{button}</Button>
+      <Link to={theme === Theme.BLUE ? '/app/coworkings' : '/list'}>
+        <Button variant={theme === Theme.BLUE ? 'outline' : 'default'} className={`w-full`}>{button}</Button>
       </Link>
     </Card>
   );

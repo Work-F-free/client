@@ -5,8 +5,13 @@ export const paths = {
 
   list: {
     path: "/list",
+    coworking: function (id?: number | string) {
+      if (id) {
+        return `${this.path}/coworking/${id}`;
+      }
+    },
   },
-
+  
   app: {
     path: "/app",
     profile: function () {

@@ -5,7 +5,6 @@ import { OfferCard, Theme } from '../offer-card';
 import { cn } from '@/lib/shadcn/utils';
 import { Title } from '../title';
 
-
 interface RecommendationProps {
   className?: string
 }
@@ -19,20 +18,23 @@ export const Recommendation: FC<RecommendationProps> = ({ className }) => {
       <Carousel
         className="w-full pb-6"
       >
-        <CarouselContent>
+        <CarouselContent >
           {Array.from({ length: quantity }).map((_, index) => {
 
             return (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 2xl:basis-1/5">
                 {
                   index === quantity - 1 ? (
-                    <OfferCard theme={Theme.BLUE} title='Разместить свой коворкинг' button='Разместить' path="/" />
+                    <OfferCard theme={Theme.BLUE} title='Разместить свой коворкинг' button='Разместить' />
                   ) : index % 5 === 2 ? (
-                    <OfferCard theme={Theme.PINK} title='Посмотреть все предложения' button='Открыть' path="/" />
+                    <OfferCard
+                      theme={Theme.PINK}
+                      title='Посмотреть все предложения'
+                      button='Открыть' />
                   ) : (
                     <CoworkingCard
                       id={index}
-                      name={'Коворкинг'} 
+                      name={'Коворкинг'}
                       price={2000}
                       imageUrl={`/coworkings/coworkings-${index % 10 + 1}.jpeg`}
                     />

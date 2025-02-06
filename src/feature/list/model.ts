@@ -1,11 +1,24 @@
 export interface CoworkingItem {
-  quantity?: string,
-  rating?: string,
-  amenities?: string[]
-  id: string,
-  name: string,
-  address: string,
-  owner: string,
-  description: string
-  availableSeats: number
+  id: string;
+  name: string;
+  address: string;
+  owner: string;
+  description: string;
 }
+
+export interface CoworkingItemDetailed extends CoworkingItem {
+  seats: Seat[];
+}
+
+interface Seat {
+  id: string;
+  type: string;  
+  seatNumber: number;
+  capacity: number;
+  price: number;
+  description: string;
+  bookings:  {
+    from: Date;
+    to: Date;
+  }[];
+} 

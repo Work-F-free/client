@@ -4,6 +4,7 @@ import { toggleAuthModalOpen } from "@/store";
 import { Container } from "../container";
 import { Title } from "../title";
 import { User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export const Header = () => {
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <Container variant={'default'}>
             <div className="flex justify-between items-center">
-              <Title text={'WorkForFree'} size="md" className="font-bold text-gray-700" />
+              <Link to="/"><Title text={'WorkForFree'} size="md" className="font-bold text-gray-700 z-10" /></Link>
               <div>
                 <Button className="h-14 rounded-none hover:bg-black/5" variant="ghost" onClick={() => dispatch(toggleAuthModalOpen())}>
                   <User /> Личный кабинет

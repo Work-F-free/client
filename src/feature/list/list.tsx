@@ -81,7 +81,7 @@ export function List() {
     catch (error) {
       console.error(error);
     }  
-  }, [currentPage, size]);
+  }, [ ]);
 
 
   const handlePageChange = (page: number) => {
