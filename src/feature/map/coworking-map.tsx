@@ -15,7 +15,7 @@ export const CoworkingMapFC: FC<CoworkingMapProps> = ({ className, geometrylist 
     controls: ["zoomControl"]
   }
   return (
-    <section className={cn(className)}>
+    <section className={cn(className)} id="map">
       <YMaps query={{ load: "package.full" }}>
         <Map
           state={mapOptions}

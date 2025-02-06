@@ -128,9 +128,9 @@ const Coworking = () => {
       <div className="h-[500px] relative">
         <img className="w-full object-cover object-center h-full absolute top-0" src={`/coworkings/coworkings-${generateRandomNumber(1, 10).toFixed(0)}.jpeg`} alt={item.name} />
       </div>
-      <div id="book" ref={bookRef} >
+      <div id="book" ref={bookRef} className='mt-8'>
 
-      <PlanView mode={"editor"} initalPlane={examplePlanCleint} />
+      <PlanView mode={"client"} initalPlane={examplePlanCleint} />
       </div>
 
       <div id="map" ref={mapRef} >

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { CoworkingItem } from './model';
-import { CoworkingCardFullWidth } from '@/components/coworking-card-full-widt';
+import { CoworkingCardFullWidth } from '@/components/coworking-card-full-width';
 import { GroupVariants } from '@/components/group-variants';
 import { Pagination } from '@/components/pagination';
 import { CoworkingSearch } from '../search';

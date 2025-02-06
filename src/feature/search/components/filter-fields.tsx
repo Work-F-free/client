@@ -26,7 +26,6 @@ type PriceProps = {
   priceTo?: number
 }
 
-
 export const FilterFields: React.FC<FilterFieldsProps> = ({ form }) => {
   const [prices, setPrices] = useState<PriceProps>({
     priceFrom: 500,
@@ -92,7 +91,6 @@ export const FilterFields: React.FC<FilterFieldsProps> = ({ form }) => {
             <Popover>
               <PopoverTrigger className="rounded-md border border-field bg-background px-3 py-2 h-10 text-start">
                 от {prices.priceFrom} до {prices.priceTo}
-
               </PopoverTrigger>
               <PopoverContent className="w-60">
                 <RangeSlider

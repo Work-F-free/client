@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form"
 import { FilterFields } from "./filter-fields";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
+import { paths } from "@/config/paths/paths";
 
-export const CoworkingMainFilter = () => { 
+export const CoworkingMainFilter = () => {
   const navigate = useNavigate();
 
   const form = useForm<TSearchForm>({
@@ -17,7 +18,7 @@ export const CoworkingMainFilter = () => {
       capacity: '1',
       availableAt: new Date(),
     }
-  }) 
+  })
 
   const handlerSubmitForm: SubmitHandler<TSearchForm> = (data) => {
     const queryStringData: Record<string, string> = {
@@ -25,9 +26,9 @@ export const CoworkingMainFilter = () => {
       priceRange: data.priceRange ? data.priceRange.join(',') : '',
       availableAt: data.availableAt ? data.availableAt.toISOString() : '',
     };
-  
+
     const queryString = new URLSearchParams(queryStringData).toString();
-    navigate(`/list?${queryString}`); 
+    navigate(paths.agrageted.coworking_list() + '?' + queryString);
   };
 
   return (
@@ -37,10 +38,12 @@ export const CoworkingMainFilter = () => {
           <FilterFields form={form} />
         </Card>
         <div className="flex justify-end gap-3">
-          {/* <Button variant={"outline"}>
-            Показать на карте
-          </Button> */}
-          <Button  type={"submit"} className={"bg-blue-500 px-12"}  >
+          <Link to="#map">
+            <Button variant={"outline"}>
+              Показать на карте
+            </Button>
+          </Link>
+          <Button type={"submit"} className={"bg-blue-500 px-12"}  >
             Найти
           </Button>
         </div>

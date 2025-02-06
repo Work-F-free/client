@@ -6,6 +6,7 @@ import { generateRandomNumber } from '@/moki/generate-rating';
 import { CoworkingItem } from '@/feature/list/model';
 import { CoworkingInfo } from '../coworking-info/coworking-info';
 import { Title } from '../title';
+import { paths } from '@/config/paths/paths';
 
 interface Props {
   item: CoworkingItem
@@ -15,7 +16,7 @@ export const CoworkingCardFullWidth: React.FC<Props> = ({
   item
 }) => {
   return (
-    <Link to={`/list/coworking/${item.id}`}>
+    <Link to={paths.agrageted.coworking_id(item.id)}>
       <Card className='sm:flex flex-1 overflow-hidden cursor-pointer  bg-stone-50 hover:bg-blue-50 transition duration-300'>
         <div className="h-[200px] sm:h-auto sm:w-2/5 relative">
           <img className="w-full object-cover object-center h-full absolute top-0" src={`/coworkings/coworkings-${generateRandomNumber(1, 10).toFixed(0)}.jpeg`} alt={item.name} />
