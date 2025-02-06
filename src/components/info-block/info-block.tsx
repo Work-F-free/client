@@ -43,9 +43,9 @@ export const InfoBlock: FC<InfoBlockProps> = (({ className }) => {
 
           <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6'>
 
-            {info.map((item) => {
+            {info.map((item, index) => {
               return (
-                <Card className='p-4'>
+                <Card key={index} className='p-4'>
                   <Title size='sm' text={item.title} className='mb-2' />
                   <p className='font-light'>{item.description}</p>
                 </Card>

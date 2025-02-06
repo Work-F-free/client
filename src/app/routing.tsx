@@ -18,6 +18,13 @@ export const CreateAppRouter = () =>
           },
         },
         {
+          path: paths.list.path,
+          lazy: async () => {
+            const module = await import("./router/aggregation/coworking-list.tsx");
+            return { element: <module.default /> };
+          },
+        },
+        {
           path: "*",
           lazy: async () => {
             const module = await import("./router/not-found.tsx");
