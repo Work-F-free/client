@@ -8,9 +8,7 @@ interface Props {
   item: CoworkingItem
 }
 
-export const CoworkingInfo: React.FC<Props> = ({
-  item
-}) => {
+export const CoworkingInfo: React.FC<Props> = ({ item }) => {
   return (
     <> 
       <div className='flex gap-3 items-center mb-4'>

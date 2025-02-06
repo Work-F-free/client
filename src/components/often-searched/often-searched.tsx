@@ -36,12 +36,13 @@ export const OftenSearched: React.FC<OftenSearchedProps> = ({ className }) => {
         list.map((item, index) => (
           <Link key={index} to={item.path}>
             <div className="h-[100px] relative overflow-hidden rounded">
-              <img className="w-full object-cover object-center h-full absolute top-0 " src={item.image} alt={item.description} />
+              <img className="w-full object-cover object-center h-full absolute top-0 " src={item.image} alt={item.description} loading='lazy' />
             </div>
             <p className='text-[14px] mt-1 mb-6'>{item.description}</p>
           </Link>
         ))
       }
-      </div>    </div>
+      </div>
+    </div>
   );
 };

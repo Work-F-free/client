@@ -3,11 +3,38 @@ import { CoworkingInfo } from '@/components/coworking-info';
 import { Title } from '@/components/title';
 import { Button } from '@/components/ui/button';
 import { CoworkingItemDetailed } from '@/feature/list/model';
-import { CoworkingMap } from '@/feature/map';
+import { CoworkingChunk } from '@/feature/map';
+import { PlanView, TPlane } from '@/feature/plane';
 import { generateCoordinates } from '@/moki/generate-coordinates';
 import { generateRandomNumber } from '@/moki/generate-rating';
 import { MapPin } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+
+
+const examplePlanCleint: TPlane = {
+  id: "1",
+  background: "",
+  seats: [
+    {
+      seat_n: "1",
+      type: "workplace",
+      color: "#ef4444",
+      coord_x: 100,
+      coord_y: 100,
+      capacity: 1,
+      price: 500,
+    },
+    {
+      seat_n: "2",
+      type: "meeting_room",
+      color: "#22c55e",
+      coord_x: 200,
+      coord_y: 200,
+      capacity: 4,
+      price: 2000,
+    },
+  ],
+};
 
 const Coworking = () => {
   const [item, setItem] = useState<CoworkingItemDetailed>({} as CoworkingItemDetailed);
@@ -101,10 +128,13 @@ const Coworking = () => {
       <div className="h-[500px] relative">
         <img className="w-full object-cover object-center h-full absolute top-0" src={`/coworkings/coworkings-${generateRandomNumber(1, 10).toFixed(0)}.jpeg`} alt={item.name} />
       </div>
-      <div id="book" ref={bookRef} />
+      <div id="book" ref={bookRef} >
+
+      <PlanView mode={"editor"} initalPlane={examplePlanCleint} />
+      </div>
 
       <div id="map" ref={mapRef} >
-        <CoworkingMap className='my-8' geometrylist={[generateCoordinates()]} />
+        <CoworkingChunk className='my-8' geometrylist={[generateCoordinates()]} />
       </div>
     </Container>
   );

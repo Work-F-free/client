@@ -10,10 +10,10 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="sticky top-0 z-10 border-b bottom-6 border-gray-950/5">
+    <header className="sticky top-0 z-20 border-b bottom-6 border-gray-950/5">
       <div className="relative h-14 bg-cover">
-        <div className="absolute inset-0 backdrop-blur-md filter"> </div>
-        <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="absolute inset-0 backdrop-blur-lg filter"> </div>
+        <div className="absolute inset-0 flex items-center justify-center">
           <Container variant={'default'}>
             <div className="flex justify-between items-center">
               <Link to="/"><Title text={'WorkForFree'} size="md" className="font-bold text-gray-700 z-10" /></Link>

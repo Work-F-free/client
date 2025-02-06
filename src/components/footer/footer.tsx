@@ -25,14 +25,14 @@ export const Footer = () => {
           <div className="text-gray-500">
             <h3 className="text-[14px] font-semibold mb-5">Резидентам</h3>
             <ul>
-              <li className="text-[13px] font-light mb-4">
-                Личный кабинет
+              <li className="text-[13px] font-light mb-4 hover:text-gray-800">
+                <Link to="/app">Личный кабинет</Link>
               </li>
               <li className="text-[13px] font-light mb-4">
                 Документы
               </li>
               <li className="text-[13px] font-light mb-4">
-                Вопросы и ответы
+                Часто задаваемые вопросы
               </li>
             </ul>
           </div>

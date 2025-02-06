@@ -8,14 +8,14 @@ interface CoworkingMapProps {
 }
 
 
-export const CoworkingMap: FC<CoworkingMapProps> = ({ className, geometrylist }) => {
+export const CoworkingMapFC: FC<CoworkingMapProps> = ({ className, geometrylist }) => {
   const mapOptions = {
     center: [59.9386, 30.3141],
     zoom: 11,
     controls: ["zoomControl"]
   }
   return (
-    <section className={cn(className)}> 
+    <section className={cn(className)}>
       <YMaps query={{ load: "package.full" }}>
         <Map
           state={mapOptions}

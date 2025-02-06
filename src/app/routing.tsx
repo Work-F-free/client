@@ -18,19 +18,19 @@ export const CreateAppRouter = () =>
           },
         },
         {
-          path: paths.list.path,
+          path: paths.agrageted.coworking_list(),
           lazy: async () => {
             const module = await import("./router/aggregation/coworking-list.tsx");
             return { element: <module.default /> };
           },
         },
         {
-          path: "/list/coworking/:id",
+          path: paths.agrageted.coworking_id(),
           lazy: async () => {
             const module = await import("./router/aggregation/coworking.tsx");
             return { element: <module.default /> };
           },
-        }, 
+        },  
         {
           path: "*",
           lazy: async () => {

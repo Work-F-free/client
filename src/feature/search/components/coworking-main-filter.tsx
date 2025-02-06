@@ -37,10 +37,10 @@ export const CoworkingMainFilter = () => {
           <FilterFields form={form} />
         </Card>
         <div className="flex justify-end gap-3">
-          <Button variant={"outline"}>
+          {/* <Button variant={"outline"}>
             Показать на карте
-          </Button>
-          <Button  type={"submit"} className={"bg-blue-500"}  >
+          </Button> */}
+          <Button  type={"submit"} className={"bg-blue-500 px-12"}  >
             Найти
           </Button>
         </div>

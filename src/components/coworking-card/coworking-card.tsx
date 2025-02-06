@@ -6,6 +6,7 @@ import { Dot, MapPin, Star } from 'lucide-react';
 import { Card } from '../ui/card';
 import { generateRandomNumber } from '@/moki/generate-rating';
 import { generateRandomAdditionals } from '@/moki/generate-additionals';
+import { paths } from '@/config/paths/paths';
 
 interface Props {
   id: number;
@@ -23,7 +24,7 @@ export const CoworkingCard: React.FC<Props> = ({
   className,
 }) => {
   return (
-    <Link to={`/list/coworking/${id}`}>
+    <Link to={paths.agrageted.coworking_id(id)}>
       <Card className={cn(className, 'w-full  cursor-pointer hover:bg-gray-50 transition duration-300 rounded-lg overflow-hidden h-full')}>
         <div className="h-[160px] relative overflow-hidden">
           <img className="w-full object-cover object-left-bottom h-full absolute top-0" src={imageUrl} alt={name} />

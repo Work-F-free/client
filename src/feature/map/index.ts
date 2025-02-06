@@ -1,3 +1,4 @@
-import { CoworkingMap } from "./coworking-map.tsx";
+import { lazy } from "react";
 
-export { CoworkingMap };
+export const CoworkingChunk = lazy(() => import("./coworking-map").then((module) => ({ default: module.CoworkingMapFC })));
+
