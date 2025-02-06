@@ -1,16 +1,16 @@
 import { FC, useState } from "react";
-import { TPlane, SeatType, TSeat } from "../type/type";
+import { useDispatch } from "react-redux";
+
+import { Button } from "@/components/ui/button";
+import { Title } from "@/components/title";
+import { setPlaneData } from "@/store/slice/coworking/coworking-slice";
+
+import { TPlane, SeatType, TSeat, TMode } from "../type/type";
 import { usePlane } from "../hooks/usePlan";
 import { ImageUploader } from "./form/image-uploader";
 import { Canvas } from "./canvas/canvas";
-import { Button } from "@/components/ui/button";
 import { SeatTypeComp } from "./form/seat-type";
-
-const initialPlan: TPlane = {
-  id: "1",
-  seats: [],
-  background: "",
-};
+import { ModalCanvas } from "./modal/modal-canvas";
 
 const seatTypes: { type: SeatType; color: string }[] = [
   { type: "workplace", color: "#ef4444" },
@@ -18,17 +18,27 @@ const seatTypes: { type: SeatType; color: string }[] = [
   { type: "conference_room", color: "#0ea5e9" },
 ];
 
-export const PlanView: FC = () => {
-  const { plane, addSeat, updateSeat, savePlanToServer, setPlanBackground } =
-    usePlane(initialPlan);
+interface PlanViewProps {
+  mode: TMode;
+  initalPlane: TPlane;
+}
 
+export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
+  const dispatch = useDispatch();
+  const {
+    plane,
+    addSeat,
+    updateSeat,
+    savePlanToServer,
+    setPlanBackground,
+    removeSeat,
+  } = usePlane(initalPlane);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [selectedSeat, setSelectedSeat] = useState<TSeat | undefined>();
 
   const handleCanvasClick = (seat: TSeat) => {
-    // Для откртия модалок под бронирвание
     setSelectedSeat(seat);
-
-    console.log(selectedSeat);
+    setIsOpen(!modalIsOpen);
   };
 
   const handleImageUpload = (file: File) => {
@@ -36,56 +46,96 @@ export const PlanView: FC = () => {
     reader.onload = (e) => {
       const background = e.target?.result as string;
       setPlanBackground(background);
+      dispatch(setPlaneData({ ...plane, background }));
     };
     reader.readAsDataURL(file);
   };
 
   const handleDrop = (x: number, y: number, type: SeatType, color: string) => {
-    const newSeat: TSeat = {
-      id: Math.random().toString(),
-      type,
-      color,
-      coord_x: x,
-      coord_y: y,
-    };
-    addSeat(newSeat);
+    if (mode === "editor") {
+      const newSeat: TSeat = {
+        seat_n: Math.random().toString(),
+        type,
+        color,
+        coord_x: x,
+        coord_y: y,
+        capacity: 1,
+        price: 0,
+      };
+
+      addSeat(newSeat);
+      dispatch(setPlaneData({ ...plane, seats: [...plane.seats, newSeat] }));
+    }
   };
 
-  const handleSeatDragEnd = (seatId: string, x: number, y: number) => {
-    updateSeat(seatId, { coord_x: x, coord_y: y });
+  const handleSeatDragEnd = (seat_num: string, x: number, y: number) => {
+    if (mode === "editor") {
+      updateSeat(seat_num, { coord_x: x, coord_y: y });
+    }
+  };
+
+  const handleSeatMiddleClick = (seatId: string) => {
+    console.log("Двойной клик на точке:", seatId);
+
+    if (mode === "editor") {
+      removeSeat(seatId);
+    }
   };
 
   return (
-    <div className="flex flex-col items-start gap-4">
-      <h4 className="text-2xl font-medium">Планировка ковворкинга</h4>
+    <>
+      <div className="flex flex-col items-start gap-4">
+        {mode === "editor" && (
+          <Title text="Планировка коворкинга" className="font-medium" />
+        )}
 
-      <div className="flex flex-col w-full md:flex-row items-center gap-4">
-        <div className="flex flex-col w-full md:flex-row  gap-2">
-          {seatTypes.map((seatType) => (
-            <SeatTypeComp
-              key={seatType.type}
-              type={seatType.type}
-              color={seatType.color}
-              onDragStart={() => {}}
-            />
-          ))}
+        <div className="w-full">
+          {mode === "editor" && (
+            <ImageUploader onImageUpload={handleImageUpload} />
+          )}
+          <Canvas
+            mode={mode}
+            background={plane.background}
+            seats={plane.seats}
+            onSeatMiddleClick={handleSeatMiddleClick}
+            onSeatClick={handleCanvasClick}
+            onSeatDragEnd={handleSeatDragEnd}
+            onDrop={handleDrop}
+          />
         </div>
 
-        <Button className={"w-full md:w-auto"} onClick={savePlanToServer}>
-          Сохранить план
-        </Button>
-      </div>
+        {mode === "editor" && (
+          <>
+            <div className="flex flex-col w-full md:flex-row items-center gap-4">
+              <div className="flex flex-col w-full md:flex-row  gap-2">
+                {seatTypes.map((seatType) => (
+                  <SeatTypeComp
+                    key={seatType.type}
+                    type={seatType.type}
+                    color={seatType.color}
+                    onDragStart={() => {}}
+                  />
+                ))}
+              </div>
 
-      <div className="w-full">
-        <ImageUploader onImageUpload={handleImageUpload} />
-        <Canvas
-          background={plane.background}
-          seats={plane.seats}
-          onSeatClick={handleCanvasClick}
-          onSeatDragEnd={handleSeatDragEnd}
-          onDrop={handleDrop}
-        />
+              <Button
+                disabled={plane.background === ""}
+                className={"w-full md:w-auto"}
+                onClick={savePlanToServer}
+              >
+                Сохранить план
+              </Button>
+            </div>
+          </>
+        )}
       </div>
-    </div>
+      <ModalCanvas
+        setPlane={updateSeat}
+        isOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        seat={selectedSeat}
+        mode={mode}
+      />
+    </>
   );
 };

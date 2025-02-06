@@ -9,6 +9,7 @@ import {
 
 import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 interface PropsValidateField<T extends FieldValues> {
   control: Control<T>;
@@ -17,6 +18,7 @@ interface PropsValidateField<T extends FieldValues> {
   placeholder?: string;
   rules?: RegisterOptions<T>;
   type?: HTMLInputTypeAttribute;
+  multiline?: boolean;
 }
 
 export const ValidateField = <T extends FieldValues>({
@@ -26,6 +28,7 @@ export const ValidateField = <T extends FieldValues>({
   placeholder,
   rules,
   type,
+  multiline,
 }: PropsValidateField<T>) => {
   return (
     <Controller
@@ -36,7 +39,11 @@ export const ValidateField = <T extends FieldValues>({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} type={type} {...field} />
+            {multiline ? (
+              <Textarea placeholder={placeholder} {...field} />
+            ) : (
+              <Input placeholder={placeholder} type={type} {...field} />
+            )}
           </FormControl>
           <FormMessage>
             {fieldState.error ? fieldState.error.message : null}
