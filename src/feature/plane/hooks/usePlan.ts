@@ -17,7 +17,7 @@ export const usePlane = (initalPlane: TPlane) => {
       setPlane((prevPlan) => ({
         ...prevPlan,
         seats: prevPlan.seats.map((seat) =>
-          seat.id === seatId ? { ...seat, ...updatedSeat } : seat,
+          seat.seat_n === seatId ? { ...seat, ...updatedSeat } : seat,
         ),
       }));
     },
@@ -35,5 +35,19 @@ export const usePlane = (initalPlane: TPlane) => {
     await savePlan(plane);
   }, [plane]);
 
-  return { plane, addSeat, updateSeat, setPlanBackground, savePlanToServer };
+  const removeSeat = useCallback((seatId: string) => {
+    setPlane((prevPlan) => ({
+      ...prevPlan,
+      seats: prevPlan.seats.filter((seat) => seat.seat_n !== seatId),
+    }));
+  }, []);
+
+  return {
+    plane,
+    addSeat,
+    updateSeat,
+    setPlanBackground,
+    savePlanToServer,
+    removeSeat,
+  };
 };
