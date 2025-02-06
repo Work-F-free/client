@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import { Title } from '../title';
 import { Dot, MapPin, Star } from 'lucide-react';
 import { Card } from '../ui/card';
+import { generateRandomNumber } from '@/moki/generate-rating';
+import { generateRandomAdditionals } from '@/moki/generate-additionals';
 interface Props {
   id: number;
   name: string;
   price: number;
-  imageUrl: string;
-  additions: string[];
+  imageUrl: string; 
   className?: string;
 }
 
 export const CoworkingCard: React.FC<Props> = ({
   name,
-  price,
-  additions,
+  price, 
   imageUrl,
   className,
 }) => {
@@ -31,10 +31,10 @@ export const CoworkingCard: React.FC<Props> = ({
           <div className='flex gap-2'>
             <span className="text-[16px] flex gap-1  text-yellow-400">
               <Star size={20} fill="#FFBA18" strokeWidth={0} />
-              4.6
+              {generateRandomNumber(4.2, 5).toFixed(1)}
             </span>
             <span>
-              {additions.map((addition, index) => (
+            {generateRandomAdditionals().map((addition, index) => (
                 <span key={index} className="text-[16px] font-light inline-flex
                 ">
                   <Dot />

@@ -3,6 +3,10 @@ export const paths = {
     path: "/",
   },
 
+  list: {
+    path: "/list",
+  },
+
   app: {
     path: "/app",
     profile: function () {
