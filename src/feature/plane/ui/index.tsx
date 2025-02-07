@@ -75,7 +75,6 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
   };
 
   const handleSeatMiddleClick = (seatId: string) => {
-    console.log("Двойной клик на точке:", seatId);
 
     if (mode === "editor") {
       removeSeat(seatId);
@@ -122,7 +121,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
                   key={seatType.type}
                   type={seatType.type}
                   color={seatType.color}
-                  onDragStart={() => {}}
+                  onDragStart={() => { }}
                 />
               ))}
             </div>

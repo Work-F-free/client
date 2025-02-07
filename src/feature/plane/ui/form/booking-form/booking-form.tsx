@@ -1,21 +1,46 @@
 import { DateVariants } from "@/components/date-variants";
-import { GroupVariants } from "@/components/group-variants";
-import { TSeat } from "@/feature/plane/type/type";
-import { generateDatesMap } from "@/lib";
+import { Button } from "@/components/ui/button";
+import { formatTime, generateDatesMap, generateSchedule } from "@/lib";
 import { FC, useEffect, useState } from "react";
 
 interface BookingFormProps {
-  seat: TSeat
+  seat: string | undefined
+}
+
+type TBooking = {
+  from: Date;
+  to: Date;
 }
 
 export const BookingForm: FC<BookingFormProps> = ({ seat }) => {
+  const [booked, setBookings] = useState<TBooking[]>([]);
   const dates = generateDatesMap(5);
   const [date, setDate] = useState(new Date());
+  const [schedule, setSchedule] = useState<TBooking[]>([]);
 
+  useEffect(() => {
+    const generatedSchedule = generateSchedule(date)
+    setSchedule(generatedSchedule);
+  }, [date]);
+
+
+  function isTimeSlotBooked(startTime: Date): boolean {
+    const start = new Date(startTime);
+
+    for (const booking of booked) {
+      const bookingFrom = new Date(booking.from);
+      const bookingTo = new Date(booking.to);
+
+      if (start >= bookingFrom && start < bookingTo) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
 
   useEffect(() => {
-
     const responce = {
       "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       "name": "string",
@@ -25,14 +50,14 @@ export const BookingForm: FC<BookingFormProps> = ({ seat }) => {
         {
           "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
           "type": "WORKPLACE",
-          "seatNumber": 0,
+          "seatNumber": 1,
           "capacity": 0,
           "price": 230,
           "description": "string",
           "bookings": [
             {
-              "from": new Date("2025-02-06T07:43:15.809Z"),
-              "to": new Date("2025-02-06T07:43:15.809Z")
+              "from": new Date("2025-02-07T07:33:15.809Z"),
+              "to": new Date("2025-02-07T07:43:15.809Z")
             }
           ]
         }, {
@@ -44,8 +69,8 @@ export const BookingForm: FC<BookingFormProps> = ({ seat }) => {
           "description": "string",
           "bookings": [
             {
-              "from": new Date("2025-02-06T07:43:15.809Z"),
-              "to": new Date("2025-02-06T07:43:15.809Z")
+              "from": new Date("2025-02-07T07:43:15.809Z"),
+              "to": new Date("2025-02-07T07:43:15.809Z")
             }
           ]
         }
@@ -53,8 +78,8 @@ export const BookingForm: FC<BookingFormProps> = ({ seat }) => {
       "description": "string"
     }
 
-    console.log(responce.seats.find((item) => item.id === "3fa85f64-5717-4562-b3fc-2c963f66afa6"));
-
+    const book = responce.seats.find(item => item.seatNumber === Number(seat))?.bookings || []
+    setBookings(book)
   }, []);
 
 
@@ -64,10 +89,17 @@ export const BookingForm: FC<BookingFormProps> = ({ seat }) => {
       value={date}
       onClick={(value) => setDate(value)}
     />
+    <div className="my-4">
+      {schedule.map((item, index) => (
+        <div className={'border-b py-2 '} key={index}>
+          <span >{formatTime(item.from)}</span>
+          <Button className="ml-4 sm:w-5/6 text-start" variant="ghost" disabled={isTimeSlotBooked(item.from)}>
+            {isTimeSlotBooked(item.from) ? 'Забронировано' : 'Забронировать'}
+          </Button>
+        </div>
+      ))}
 
-
-
-    <div className=""></div>
+    </div>
 
   </div>;
 };

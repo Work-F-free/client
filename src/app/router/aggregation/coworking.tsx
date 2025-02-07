@@ -10,7 +10,6 @@ import { generateRandomNumber } from '@/moki/generate-rating';
 import { MapPin } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
-
 const examplePlanCleint: TPlane = {
   id: "1",
   background: "",

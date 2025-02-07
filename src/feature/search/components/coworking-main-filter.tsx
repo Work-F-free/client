@@ -21,13 +21,13 @@ export const CoworkingMainFilter = () => {
   })
 
   const handlerSubmitForm: SubmitHandler<TSearchForm> = (data) => {
-    const queryStringData: Record<string, string> = {
-      ...data,
-      priceRange: data.priceRange ? data.priceRange.join(',') : '',
-      availableAt: data.availableAt ? data.availableAt.toISOString() : '',
-    };
+    // const queryStringData: Record<string, string> = {
+    //   ...data,
+    //   priceRange: data.priceRange ? data.priceRange.join(',') : '',
+    //   availableAt: data.availableAt ? data.availableAt.toISOString() : '',
+    // };
 
-    const queryString = new URLSearchParams(queryStringData).toString();
+    // const queryString = new URLSearchParams(queryStringData).toString();
     navigate(paths.agrageted.coworking_list());
   };
 
