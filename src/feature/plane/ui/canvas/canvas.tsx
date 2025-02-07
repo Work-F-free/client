@@ -11,8 +11,8 @@ interface CanvasProps {
   background: string;
   seats: TSeat[];
   onSeatClick: (seat: TSeat) => void;
-  onSeatMiddleClick: (seatId: string) => void;
-  onSeatDragEnd: (seatId: string, x: number, y: number) => void;
+  onSeatMiddleClick: (seatId: number) => void;
+  onSeatDragEnd: (seatId: number, x: number, y: number) => void;
   onDrop: (x: number, y: number, type: SeatType, color: string) => void;
 }
 
@@ -167,7 +167,7 @@ export const Canvas: FC<CanvasProps> = ({
 
   return (
     <div
-      className={"relative"}
+      className={"relative overflow-hidden"}
       onDrop={(e) => {
         if (mode && stageRef.current) {
           e.preventDefault();

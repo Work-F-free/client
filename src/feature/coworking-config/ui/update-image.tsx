@@ -1,48 +1,22 @@
 import { useState } from "react";
-import { s3minio } from "@/config/minio";
 
 interface UpdateImageProps {
-  imageData?: Uint8Array | null;
-  onUpdate: (file: File) => void;
-}
-
-interface UpdateImageProps {
-  imageData?: Uint8Array | null;
+  imagePreview?: string | null;
   onUpdate: (file: File) => void;
 }
 
 export const UpdateImage: React.FC<UpdateImageProps> = ({
-  imageData,
+  imagePreview,
   onUpdate,
 }) => {
-  const [preview, setPreview] = useState<string | null>(
-    imageData ? URL.createObjectURL(new Blob([imageData])) : null,
-  );
+  const [preview, setPreview] = useState<string | null>(imagePreview || null);
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setPreview(URL.createObjectURL(file));
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
       onUpdate(file);
-
-      const params = {
-        Bucket: s3minio.bucketName,
-        Key: s3minio.generate_name_photo(
-          "ekqmfp1i32fm13f",
-          "innwork",
-          file.name,
-        ),
-        Body: file,
-      };
-
-      try {
-        await s3minio.minioClient.upload(params).promise();
-        console.log("File uploaded successfully");
-      } catch (error) {
-        console.error("Error uploading file:", error);
-      }
     }
   };
 

@@ -17,7 +17,7 @@ interface ModalCanvasProps {
   mode: TMode;
   seat?: TSeat;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  setPlane: (seatId: string, updatedSeat: Partial<TSeat>) => void;
+  setPlane: (seatId: number, updatedSeat: Partial<TSeat>) => void;
 }
 
 export const ModalCanvas: FC<ModalCanvasProps> = ({

@@ -5,6 +5,7 @@ import { TPlane } from "@/feature/plane";
 interface CoworkingState {
   formData: TEditCoworkigShema;
   planeData: TPlane;
+  imageFile: File | null;
 }
 
 const initialState: CoworkingState = {
@@ -18,6 +19,7 @@ const initialState: CoworkingState = {
     background: "",
     seats: [],
   },
+  imageFile: null,
 };
 
 const coworkingSlice = createSlice({
@@ -30,8 +32,12 @@ const coworkingSlice = createSlice({
     setPlaneData: (state, action: PayloadAction<TPlane>) => {
       state.planeData = action.payload;
     },
+    setImageFile: (state, action: PayloadAction<File | null>) => {
+      state.imageFile = action.payload;
+    },
   },
 });
 
-export const { setFormData, setPlaneData } = coworkingSlice.actions;
+export const { setFormData, setPlaneData, setImageFile } =
+  coworkingSlice.actions;
 export default coworkingSlice.reducer;

@@ -8,9 +8,9 @@ interface SeatTypeCompProps {
 }
 
 const TypeWithName = {
-  workplace: "Рабочее место",
-  meeting_room: "Переговорная",
-  conference_room: "Конференц зал",
+  WORKPLACE: "Рабочее место",
+  MEETING_ROOM: "Переговорная",
+  CONFERENCE_ROOM: "Конференц зал",
 };
 
 export const SeatTypeComp: FC<SeatTypeCompProps> = ({

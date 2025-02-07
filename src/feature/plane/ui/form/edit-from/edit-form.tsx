@@ -12,7 +12,7 @@ import { toast } from "sonner";
 
 interface EditFormProps {
   seat?: TSeat;
-  setPlane: (seatId: string, updatedSeat: Partial<TSeat>) => void;
+  setPlane: (seatId: number, updatedSeat: Partial<TSeat>) => void;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
