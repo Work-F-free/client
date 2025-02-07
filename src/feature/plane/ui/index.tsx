@@ -84,9 +84,19 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
 
   return (
     <>
-      <div className="flex flex-col items-start gap-4">
+      <div className="flex flex-col items-start gap-4 border px-6 py-8">
         {mode === "editor" && (
-          <Title text="Планировка коворкинга" className="font-medium" />
+          <div className="flex w-full items-center justify-between">
+            <Title text="Планировка" className="font-medium " />
+
+            <Button
+              disabled={plane.background === ""}
+              className={"w-full md:w-auto"}
+              onClick={savePlanToServer}
+            >
+              Сохранить план
+            </Button>
+          </div>
         )}
 
         <div className="w-full">
@@ -106,25 +116,15 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
 
         {mode === "editor" && (
           <>
-            <div className="flex flex-col w-full md:flex-row items-center gap-4">
-              <div className="flex flex-col w-full md:flex-row  gap-2">
-                {seatTypes.map((seatType) => (
-                  <SeatTypeComp
-                    key={seatType.type}
-                    type={seatType.type}
-                    color={seatType.color}
-                    onDragStart={() => {}}
-                  />
-                ))}
-              </div>
-
-              <Button
-                disabled={plane.background === ""}
-                className={"w-full md:w-auto"}
-                onClick={savePlanToServer}
-              >
-                Сохранить план
-              </Button>
+            <div className="flex flex-col w-full md:flex-row  gap-2">
+              {seatTypes.map((seatType) => (
+                <SeatTypeComp
+                  key={seatType.type}
+                  type={seatType.type}
+                  color={seatType.color}
+                  onDragStart={() => {}}
+                />
+              ))}
             </div>
           </>
         )}

@@ -1,12 +1,15 @@
-import { Title } from "@/components/title";
 import { EditFormCow } from "./form/edit-form-cow";
+import { TEditCoworkigShema } from "../shema/shema-config";
+import { FC } from "react";
 
-export const CoworkingConfig = () => {
+interface CoworkingConfigProps {
+  initalData: TEditCoworkigShema;
+}
+
+export const CoworkingConfig: FC<CoworkingConfigProps> = ({ initalData }) => {
   return (
     <div className="w-full">
-      <Title text="Новый ковворикнг" className="font-medium" />
-
-      <EditFormCow />
+      <EditFormCow initalData={initalData} />
     </div>
   );
 };
