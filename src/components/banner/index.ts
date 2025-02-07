@@ -1,3 +1,4 @@
-import { Banner } from "./banner.tsx";
+import { lazy } from "react";
 
-export { Banner };
+export const BunnerChunk = lazy(() => import("./banner").then((module) => ({ default: module.BannerFC })));
+

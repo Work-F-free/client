@@ -3,6 +3,7 @@ import { Title } from '../title';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/shadcn/utils';
+import { Link } from 'react-router-dom';
 
 interface InfoBlockProps {
   className?: string
@@ -40,7 +41,6 @@ export const InfoBlock: FC<InfoBlockProps> = (({ className }) => {
           <Title text={'Весь функционал в удобном личном кабинете'} size="md" className="mb-2 font-bold" />
           <p className='mb-4'>Никакой бюрократии, всё под рукой. Пользуйтесь в смартфоне или на компьютере, как вам удобнее.</p>
 
-
           <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6'>
 
             {info.map((item, index) => {
@@ -52,7 +52,7 @@ export const InfoBlock: FC<InfoBlockProps> = (({ className }) => {
               );
             })}
           </div>
-          <Button className='px-14'>Регистрация</Button>
+          <Link to="/app"><Button className='px-14'>Регистрация</Button></Link>
         </div>
       </div>
     </div>

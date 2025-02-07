@@ -63,7 +63,7 @@ export interface CreateBookingRequest {
 export interface SearchCoworkingParams {
   id?: string;
   name?: string;
-  types?: ("WORKPLACE" | "MEETING_ROOM" | "CONFERENCE_ROOM")[];
+  types?: string[];
   priceFrom?: number;
   priceTo?: number;
   capacity?: number;

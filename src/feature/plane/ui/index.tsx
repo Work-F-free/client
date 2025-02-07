@@ -122,7 +122,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
                   key={seatType.type}
                   type={seatType.type}
                   color={seatType.color}
-                  onDragStart={() => {}}
+                  onDragStart={() => { }}
                 />
               ))}
             </div>

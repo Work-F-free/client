@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import { Building2, User } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Title } from '../title';
+import { paths } from '@/config/paths/paths';
 
 export enum Theme {
   BLUE = 'blue',
@@ -15,14 +16,12 @@ interface Props {
   theme: Theme
   title: string;
   button: string;
-  path: string;
   className?: string
 }
 export const OfferCard: React.FC<Props> = ({
   theme,
   title,
   button,
-  path,
   className,
 }) => {
   return (
@@ -33,8 +32,8 @@ export const OfferCard: React.FC<Props> = ({
         </div>
         <Title size='sm' text={title} className={` ${theme === Theme.BLUE ? 'text-white' : ''}`} />
       </div>
-      <Link to={path}>
-        <Button className={`w-full ${theme === Theme.BLUE ? 'dark' : ''}`}>{button}</Button>
+      <Link to={theme === Theme.BLUE ? paths.app.profile() : paths.agrageted.coworking_list()}>
+        <Button variant={theme === Theme.BLUE ? 'outline' : 'default'} className={`w-full`}>{button}</Button>
       </Link>
     </Card>
   );

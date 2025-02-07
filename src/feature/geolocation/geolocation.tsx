@@ -36,7 +36,7 @@ export const Geolocation: FC<GeolocationProps> = ({ className }) => {
   if (location) {
     return (
       <div className={cn(className)}>
-        <span className='bg-black/25 text-white py-1 flex gap-2 items-center px-3 font-light rounded'>
+        <span className='bg-black/35 text-white py-1 flex gap-2 items-center px-3 font-light rounded'>
           <Navigation size={16} fill='#fff' /> {location}
         </span>
       </div>

@@ -17,7 +17,7 @@ export const Footer = () => {
                 </span>
               </li>
               <li>
-                <a href="mailto:info@workForFree.co" className="text-[13px] font-light" >info@workForFree.co</a>
+                <a href="mailto:info@coworka.co" className="text-[13px] font-light" >info@coworka.co</a>
               </li>
             </ul>
           </div>
@@ -25,21 +25,21 @@ export const Footer = () => {
           <div className="text-gray-500">
             <h3 className="text-[14px] font-semibold mb-5">Резидентам</h3>
             <ul>
-              <li className="text-[13px] font-light mb-4">
-                Личный кабинет
+              <li className="text-[13px] font-light mb-4 hover:text-gray-800">
+                <Link to="/app">Личный кабинет</Link>
               </li>
               <li className="text-[13px] font-light mb-4">
                 Документы
               </li>
               <li className="text-[13px] font-light mb-4">
-                Вопросы и ответы
+                Часто задаваемые вопросы
               </li>
             </ul>
           </div>
 
         </div>
         <div className="text-[10px] text-gray-400 flex justify-between gap-4 pt-3 pb-8">
-          <span>© 2025, WorkForFree. Все права защищены.</span>
+          <span>© 2025, Coworka. Все права защищены.</span>
           <div className="flex gap-4" >
             <Link to="/polici">Политика конфиденциальности</Link>
             <Link to="/oferta">Договор оферты</Link>
