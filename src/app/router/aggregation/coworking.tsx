@@ -37,7 +37,7 @@ const examplePlanCleint: TPlane = {
 };
 
 const Coworking = () => {
-  const [item, setItem] = useState<CoworkingItemDetailed>({} as CoworkingItemDetailed);
+  const [item, setItem] = useState<CoworkingItemDetailed>();
   const bookRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -107,26 +107,24 @@ const Coworking = () => {
       <div className=' md:flex justify-between mt-4'>
         <div>
           <span className='bg-gray-200 font-semibold rounded-md px-4 py-1 mr-4'>
-            от {item.seats?.reduce((min, seat) => {
+            от {item?.seats?.reduce((min, seat) => {
               return seat.price < min ? seat.price : min;
             }, Infinity)}  ₽
           </span>
           <span className='bg-slate-200 font-semibold rounded-md px-4 py-1'>
-            {item.seats?.reduce((sum, seat) => sum + seat.capacity, 0)} свободных мест
+            {item?.seats?.reduce((sum, seat) => sum + seat.capacity, 0)} свободных мест
           </span>
 
-          <Title text={item.name} size="xl" className="font-extrabold" />
+          <Title text={item?.name ?? ''} size="xl" className="font-extrabold" />
         </div>
         <Button onClick={() => scrollToElement(bookRef)} className='bg-blue-500 w-full md:w-auto'>Забронировать</Button>
-      </div>
+      </div>{item && <CoworkingInfo item={item} />}
       <span onClick={() => scrollToElement(mapRef)} className="flex cursor-pointer font-light gap-1 items-center text-[16px] text-gray-400">
-        <MapPin size={12} /> {item.address}
+        <MapPin size={12} /> {item?.address}
       </span>
 
-      <CoworkingInfo item={item} />
-
       <div className="h-[500px] relative">
-        <img className="w-full object-cover object-center h-full absolute top-0" src={`/coworkings/coworkings-${generateRandomNumber(1, 10).toFixed(0)}.jpeg`} alt={item.name} />
+        <img className="w-full object-cover object-center h-full absolute top-0" src={`/coworkings/coworkings-${generateRandomNumber(1, 10).toFixed(0)}.jpeg`} alt={item?.name} />
       </div>
       <div id="book" ref={bookRef} className='mt-8'>
 

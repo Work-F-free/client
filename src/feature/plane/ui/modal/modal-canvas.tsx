@@ -42,7 +42,7 @@ export const ModalCanvas: FC<ModalCanvasProps> = ({
           {mode === "editor" ? (
             <EditForm setOpen={setIsOpen} setPlane={setPlane} seat={seat} />
           ) : (
-            <BookingForm />
+            <BookingForm seat={seat?.seat_n} />
           )}
         </DialogHeader>
       </DialogContent>
