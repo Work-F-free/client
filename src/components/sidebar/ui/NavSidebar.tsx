@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { paths } from "@/config/paths/paths";
 // todo ---  убрать кааашку и прикрутиь тип
-import { MapCow } from "../api/axios-coworkig";
+// import { MapCow } from "../api/axios-coworkig";
 import { Building2, ChevronDown } from "lucide-react";
 
 // Todo тут будут список коворкингов + линка наа создание новго ковворкинга
@@ -41,8 +41,8 @@ export const NavSidebar = () => {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {MapCow.map((el) => (
-                      <SidebarMenuItem key={el.id}>
+                    {/* {MapCow.map((el) => (
+                      <SidebarMenuItem key={el.}>
                         <SidebarMenuButton
                           onClick={() => {
                             navigate(paths.app.coworking(el.id));
@@ -51,7 +51,7 @@ export const NavSidebar = () => {
                           {el.name}
                         </SidebarMenuButton>
                       </SidebarMenuItem>
-                    ))}
+                    ))} */}
 
                     <SidebarMenuSubItem>
                       <Button

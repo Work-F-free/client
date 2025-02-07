@@ -1,125 +1,86 @@
-import { useMemo } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import {
-  CoworkingConfig,
-  TEditCoworkigShema,
-} from "@/feature/coworking-config";
+import { CoworkingConfig } from "@/feature/coworking-config";
 import { PlanView } from "@/feature/plane";
-import { TPlane } from "@/feature/plane/type/type";
 import { Button } from "@/components/ui/button";
 import { UpdateImage } from "@/feature/coworking-config/ui/update-image";
+import { AppState } from "@/store";
+import { setImageFile } from "@/store/slice/coworking/coworking-slice";
+import { CoreServiceAPI, CreateUpdateCoworkingRequest } from "@/config/api";
+import { TSeat } from "@/feature/plane/type/type";
 
 const Coworking = () => {
   const { action } = useParams<{ action?: string }>();
+  const dispatch = useDispatch();
 
-  const initialPlane = useMemo<TPlane>(() => {
-    if (action === "new") {
-      return { id: "", background: "", seats: [] };
-    }
-    return {
-      id: `${action}`,
-      background: "",
-      seats: [
-        {
-          seat_n: "1",
-          type: "WORKPLACE",
-          color: "#ef4444",
-          coord_x: 100,
-          coord_y: 100,
-          capacity: 1,
-          price: 500,
-        },
-        {
-          seat_n: "2",
-          type: "MEETING_ROOM",
-          color: "#22c55e",
-          coord_x: 200,
-          coord_y: 200,
-          capacity: 4,
-          price: 2000,
-        },
-      ],
-    };
-  }, [action]);
+  const { formData, planeData, imageFile } = useSelector(
+    (state: AppState) => state.coworking,
+  );
 
-  const initalData = useMemo<TEditCoworkigShema>(() => {
-    if (action === "new") {
-      return {
-        name_coworking: "",
-        address: "",
-        description: "",
-      };
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    imageFile ? URL.createObjectURL(imageFile) : null,
+  );
+
+  const handleImageUpdate = (file: File) => {
+    setImagePreview(URL.createObjectURL(file));
+    dispatch(setImageFile(file));
+  };
+
+  const handleSubmit = () => {
+    if (
+      !formData.name_coworking ||
+      !formData.address ||
+      !formData.description
+    ) {
+      alert("Заполните все поля!");
+      return;
     }
 
-    return {
-      name_coworking: `Название ковворкинга №${action}`,
-      address: `Адресс №${action}`,
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quis maiores optio incidunt ducimus, eveniet autem illo assumenda etur illum, incidunt numquam dolorem veniam esse exercitationem rerum temporibus?st fugit. Consequun",
+    if (!planeData.seats.length) {
+      alert("Добавьте хотя бы одно место!");
+      return;
+    }
+
+    if (!imageFile) {
+      alert("Загрузите изображение!");
+      return;
+    }
+
+    const CoreApi = new CoreServiceAPI();
+    const NewCoowrking: CreateUpdateCoworkingRequest = {
+      address: formData.address,
+      name: formData.name_coworking,
+      description: formData.description,
+      owner: "Efim",
+      latitude: 0,
+      longitude: 0,
+      seats: planeData.seats.map((seat: TSeat) => ({
+        seatNumber: seat.seat_n,
+        type: seat.type,
+        capacity: seat.capacity,
+        price: seat.price,
+        description: "Default description",
+      })),
     };
-  }, [action]);
 
-  /* СКРЫТАЯ ВКУСНЯХА */
+    console.log(NewCoowrking);
 
-  // const [initialPlane, setInitialPlane] = useState<TPlane | null>(null);
-  // const [loading, setLoading] = useState<boolean>(true);
+    const resNewCow = CoreApi.createCoworking(NewCoowrking);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (action === "new") {
-  //       setInitialPlane({
-  //         id: "",
-  //         background: "",
-  //         seats: [],
-  //       });
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     try {
-  //       setLoading(true);
-  //       const response = await fetch(`/api/coworking/${action}`); // Замените на свой API
-  //       const data: TPlane = await response.json();
-  //       setInitialPlane(data);
-  //     } catch (error) {
-  //       console.error("Ошибка загрузки данных:", error);
-  //       setInitialPlane({
-  //         id: `${action}`,
-  //         background: "",
-  //         seats: [],
-  //       });
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [action]);
-
-  // if (loading) {
-  //   return <p>Загрузка...</p>;
-  // }
-
-  // if (!initialPlane) {
-  //   return <p>Ошибка загрузки данных.</p>;
-  // }
+    console.log(resNewCow);
+  };
 
   return (
     <section className="flex flex-col gap-6">
-      <UpdateImage
-        imageData={null}
-        onUpdate={(file) => {
-          console.log("Новый файл:", file);
-        }}
-      />
-
-      <CoworkingConfig initalData={initalData} />
-      <PlanView key={action} mode={"editor"} initalPlane={initialPlane} />
-
+      <UpdateImage imagePreview={imagePreview} onUpdate={handleImageUpdate} />
+      <CoworkingConfig initalData={formData} />
+      <PlanView key={action} mode={"editor"} initalPlane={planeData} />
       <div className="w-full h-[1px] bg-gray-200"></div>
-
-      <Button>{action === "new" ? "Добваить" : "Обновить"}</Button>
+      <Button onClick={handleSubmit}>
+        {action === "new" ? "Добавить" : "Обновить"}
+      </Button>
     </section>
   );
 };

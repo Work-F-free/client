@@ -13,9 +13,9 @@ import { SeatTypeComp } from "./form/seat-type";
 import { ModalCanvas } from "./modal/modal-canvas";
 
 const seatTypes: { type: SeatType; color: string }[] = [
-  { type: "workplace", color: "#ef4444" },
-  { type: "meeting_room", color: "#22c55e" },
-  { type: "conference_room", color: "#0ea5e9" },
+  { type: "WORKPLACE", color: "#ef4444" },
+  { type: "MEETING_ROOM", color: "#22c55e" },
+  { type: "CONFERENCE_ROOM", color: "#0ea5e9" },
 ];
 
 interface PlanViewProps {
@@ -54,7 +54,7 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
   const handleDrop = (x: number, y: number, type: SeatType, color: string) => {
     if (mode === "editor") {
       const newSeat: TSeat = {
-        seat_n: Math.random().toString(),
+        seat_n: Math.floor(Math.random() * 100) + 1,
         type,
         color,
         coord_x: x,
@@ -68,13 +68,14 @@ export const PlanView: FC<PlanViewProps> = ({ mode, initalPlane }) => {
     }
   };
 
-  const handleSeatDragEnd = (seat_num: string, x: number, y: number) => {
+  const handleSeatDragEnd = (seat_num: number, x: number, y: number) => {
     if (mode === "editor") {
       updateSeat(seat_num, { coord_x: x, coord_y: y });
     }
   };
 
-  const handleSeatMiddleClick = (seatId: string) => {
+  const handleSeatMiddleClick = (seatId: number) => {
+    console.log("Двойной клик на точке:", seatId);
 
     if (mode === "editor") {
       removeSeat(seatId);

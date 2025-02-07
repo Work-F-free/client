@@ -13,7 +13,7 @@ export const usePlane = (initalPlane: TPlane) => {
   }, []);
 
   const updateSeat = useCallback(
-    (seatId: string, updatedSeat: Partial<TSeat>) => {
+    (seatId: number, updatedSeat: Partial<TSeat>) => {
       setPlane((prevPlan) => ({
         ...prevPlan,
         seats: prevPlan.seats.map((seat) =>
@@ -35,7 +35,7 @@ export const usePlane = (initalPlane: TPlane) => {
     await savePlan(plane);
   }, [plane]);
 
-  const removeSeat = useCallback((seatId: string) => {
+  const removeSeat = useCallback((seatId: number) => {
     setPlane((prevPlan) => ({
       ...prevPlan,
       seats: prevPlan.seats.filter((seat) => seat.seat_n !== seatId),

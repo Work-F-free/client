@@ -1,7 +1,7 @@
 export type SeatType = "WORKPLACE" | "MEETING_ROOM" | "CONFERENCE_ROOM";
 
 export type TSeat = {
-  seat_n: string; // TODO ----- Возможно придется пофиксить --------
+  seat_n: number; // TODO ----- Возможно придется пофиксить --------
   type: SeatType;
   color: string;
   coord_x?: number;
