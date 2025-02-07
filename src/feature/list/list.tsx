@@ -17,7 +17,7 @@ export function List() {
   const getData = useCallback(async (data?: TSearchForm) => {
     try {
       const coworkingService = new CoreServiceAPI();
-      let params: SearchCoworkingParams = { page: currentPage, size: size };
+      let params: SearchCoworkingParams = { page: currentPage -1, size: size };
 
       params.capacity = data?.capacity ? Number(data.capacity) : undefined;
       params.name = data?.name?.length ? data.name : undefined;
@@ -27,7 +27,7 @@ export function List() {
       params.availableAt = data?.availableAt?.toISOString() ?? new Date().toISOString();
 
       const results = await coworkingService.searchCoworkings(params);
-      console.log(results);
+      // console.log(results);
       const response = {
         "totalElements": 25,
         "totalPages": 3,

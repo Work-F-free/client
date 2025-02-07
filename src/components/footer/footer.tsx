@@ -17,7 +17,7 @@ export const Footer = () => {
                 </span>
               </li>
               <li>
-                <a href="mailto:info@koworka.co" className="text-[13px] font-light" >info@koworka.co</a>
+                <a href="mailto:info@coworka.co" className="text-[13px] font-light" >info@coworka.co</a>
               </li>
             </ul>
           </div>
@@ -39,7 +39,7 @@ export const Footer = () => {
 
         </div>
         <div className="text-[10px] text-gray-400 flex justify-between gap-4 pt-3 pb-8">
-          <span>© 2025, koworka. Все права защищены.</span>
+          <span>© 2025, Coworka. Все права защищены.</span>
           <div className="flex gap-4" >
             <Link to="/polici">Политика конфиденциальности</Link>
             <Link to="/oferta">Договор оферты</Link>
