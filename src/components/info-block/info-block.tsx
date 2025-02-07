@@ -4,6 +4,7 @@ import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/shadcn/utils';
 import { Link } from 'react-router-dom';
+import { paths } from '@/config/paths/paths';
 
 interface InfoBlockProps {
   className?: string
@@ -52,7 +53,7 @@ export const InfoBlock: FC<InfoBlockProps> = (({ className }) => {
               );
             })}
           </div>
-          <Link to="/app"><Button className='px-14'>Регистрация</Button></Link>
+          <Link to={paths.app.coworking()}><Button className='px-14'>Регистрация</Button></Link>
         </div>
       </div>
     </div>

@@ -15,8 +15,8 @@ const examplePlanCleint: TPlane = {
   background: "",
   seats: [
     {
-      seat_n: "1",
-      type: "workplace",
+      seat_n: 1,
+      type: "WORKPLACE",
       color: "#ef4444",
       coord_x: 100,
       coord_y: 100,
@@ -24,8 +24,8 @@ const examplePlanCleint: TPlane = {
       price: 500,
     },
     {
-      seat_n: "2",
-      type: "meeting_room",
+      seat_n: 2,
+      type: "MEETING_ROOM",
       color: "#22c55e",
       coord_x: 200,
       coord_y: 200,

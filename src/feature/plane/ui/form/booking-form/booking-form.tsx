@@ -4,7 +4,7 @@ import { formatTime, generateDatesMap, generateSchedule } from "@/lib";
 import { FC, useEffect, useState } from "react";
 
 interface BookingFormProps {
-  seat: string | undefined
+  seat?: number
 }
 
 type TBooking = {

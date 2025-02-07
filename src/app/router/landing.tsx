@@ -7,7 +7,7 @@ import { CoworkingChunk } from '@/feature/map';
 import { generateCoordinates } from '@/moki/generate-coordinates';
 
 const Landing = () => {
-  const coordinates = Array(10).fill(null).map((item, index) => ({ geometry: generateCoordinates(), id: index }));
+  const coordinates = Array(10).fill(null).map((_item, index) => ({ geometry: generateCoordinates(), id: index }));
 
   return (
     <Container variant={'default'}>

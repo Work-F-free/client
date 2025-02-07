@@ -4,7 +4,7 @@ import { CoworkingCardFullWidth } from '@/components/coworking-card-full-width';
 import { GroupVariants } from '@/components/group-variants';
 import { Pagination } from '@/components/pagination';
 import { CoworkingSearch } from '../search';
-import { CoreServiceAPI, SearchCoworkingParams } from '@/config/api';
+import { SearchCoworkingParams } from '@/config/api';
 import { TSearchForm } from '../search/shema/shema-search';
 import { SubmitHandler } from 'react-hook-form';
 
@@ -16,8 +16,8 @@ export function List() {
 
   const getData = useCallback(async (data?: TSearchForm) => {
     try {
-      const coworkingService = new CoreServiceAPI();
-      let params: SearchCoworkingParams = { page: currentPage -1, size: size };
+      // const coworkingService = new CoreServiceAPI();
+      const params: SearchCoworkingParams = { page: currentPage -1, size: size };
 
       params.capacity = data?.capacity ? Number(data.capacity) : undefined;
       params.name = data?.name?.length ? data.name : undefined;
@@ -26,7 +26,7 @@ export function List() {
       params.priceTo = data?.priceRange?.[1] ?? undefined;
       params.availableAt = data?.availableAt?.toISOString() ?? new Date().toISOString();
 
-      const results = await coworkingService.searchCoworkings(params);
+      // const results = await coworkingService.searchCoworkings(params);
       // console.log(results);
       const response = {
         "totalElements": 25,

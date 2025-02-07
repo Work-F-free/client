@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form"
 import { FilterFields } from "./filter-fields";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { paths } from "@/config/paths/paths";
 
 export const CoworkingMainFilter = () => {
@@ -20,7 +20,7 @@ export const CoworkingMainFilter = () => {
     }
   })
 
-  const handlerSubmitForm: SubmitHandler<TSearchForm> = (data) => {
+  const handlerSubmitForm: SubmitHandler<TSearchForm> = () => {
     // const queryStringData: Record<string, string> = {
     //   ...data,
     //   priceRange: data.priceRange ? data.priceRange.join(',') : '',
@@ -38,12 +38,12 @@ export const CoworkingMainFilter = () => {
           <FilterFields form={form} />
         </Card>
         <div className="flex justify-end gap-3">
-          <Link to="#map">
+          {/* <Link to="#map">
             <Button variant={"outline"}>
               Показать на карте
             </Button>
-          </Link>
-          <Button type={"submit"} className={"bg-blue-500 px-12"}  >
+          </Link> */}
+          <Button type={"submit"} className={"bg-blue-500 px-16"}  >
             Найти
           </Button>
         </div>
