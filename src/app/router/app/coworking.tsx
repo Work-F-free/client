@@ -23,7 +23,7 @@ const Coworking = () => {
       seats: [
         {
           seat_n: "1",
-          type: "workplace",
+          type: "WORKPLACE",
           color: "#ef4444",
           coord_x: 100,
           coord_y: 100,
@@ -32,7 +32,7 @@ const Coworking = () => {
         },
         {
           seat_n: "2",
-          type: "meeting_room",
+          type: "MEETING_ROOM",
           color: "#22c55e",
           coord_x: 200,
           coord_y: 200,
