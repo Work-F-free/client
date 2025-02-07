@@ -1,4 +1,4 @@
-export type SeatType = "workplace" | "meeting_room" | "conference_room";
+export type SeatType = "WORKPLACE" | "MEETING_ROOM" | "CONFERENCE_ROOM";
 
 export type TSeat = {
   seat_n: string; // TODO ----- Возможно придется пофиксить --------
