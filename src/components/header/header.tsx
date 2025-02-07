@@ -16,7 +16,7 @@ export const Header = () => {
         <div className="absolute inset-0 flex items-center justify-center">
           <Container variant={'default'}>
             <div className="flex justify-between items-center">
-              <Link to="/"><Title text={'WorkForFree'} size="md" className="font-bold text-gray-700 z-10" /></Link>
+              <Link to="/"><Title text={'koworka'} size="md" className="font-bold text-gray-700 z-10" /></Link>
               <div>
                 <Button className="h-14 rounded-none hover:bg-black/5" variant="ghost" onClick={() => dispatch(toggleAuthModalOpen())}>
                   <User /> Личный кабинет

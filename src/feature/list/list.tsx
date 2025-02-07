@@ -4,16 +4,30 @@ import { CoworkingCardFullWidth } from '@/components/coworking-card-full-width';
 import { GroupVariants } from '@/components/group-variants';
 import { Pagination } from '@/components/pagination';
 import { CoworkingSearch } from '../search';
+import { CoreServiceAPI, SearchCoworkingParams } from '@/config/api';
+import { TSearchForm } from '../search/shema/shema-search';
+import { SubmitHandler } from 'react-hook-form';
 
 export function List() {
   const [currentPage, setCurrentPage] = useState(1);
   const [size, setSize] = useState(10);
   const availableSizes = [5, 10, 25, 50, 100];
-  const [list, setList] = useState<Array<CoworkingItem>>([]); 
+  const [list, setList] = useState<Array<CoworkingItem>>([]);
 
-  const getData = useCallback(async () => { 
+  const getData = useCallback(async (data?: TSearchForm) => {
     try {
+      const coworkingService = new CoreServiceAPI();
+      let params: SearchCoworkingParams = { page: currentPage, size: size };
 
+      params.capacity = data?.capacity ? Number(data.capacity) : undefined;
+      params.name = data?.name?.length ? data.name : undefined;
+      params.types = data?.types?.length ? [data.types] : undefined;
+      params.priceFrom = data?.priceRange?.[0] ?? undefined;
+      params.priceTo = data?.priceRange?.[1] ?? undefined;
+      params.availableAt = data?.availableAt?.toISOString() ?? new Date().toISOString();
+
+      const results = await coworkingService.searchCoworkings(params);
+      console.log(results);
       const response = {
         "totalElements": 25,
         "totalPages": 3,
@@ -77,11 +91,11 @@ export function List() {
       }
 
       setList(response.content);
+    } catch (error) {
+      console.error('Error searching coworking spaces:', error);
     }
-    catch (error) {
-      console.error(error);
-    }  
-  }, [ ]);
+
+  }, [currentPage, size]);
 
 
   const handlePageChange = (page: number) => {
@@ -90,18 +104,23 @@ export function List() {
 
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [ ]);
 
+
+  const handleCoworkingSearchSubmit: SubmitHandler<TSearchForm> = (data) => {
+    getData(data)
+  };
 
   return (
     <>
-      <CoworkingSearch />
+      <CoworkingSearch onSubmit={handleCoworkingSearchSubmit} />
+ 
       <div className=" border-b border-gray-100 pb-5 mb-5">
         <Pagination
           totalItems={100}
           pageSize={size}
           currentPage={currentPage}
-          onCurrentPageChange={handlePageChange}
+          onCurrentPageChange={(page) => setCurrentPage(page)}
         />
       </div>
       <div className='flex flex-col gap-5 my-8'>

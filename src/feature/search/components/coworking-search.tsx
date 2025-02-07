@@ -1,13 +1,17 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, UseFormReturn, useForm } from "react-hook-form";
 import { TSearchForm, searchShema } from "../shema/shema-search";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem } from "@/components/ui/form"
-import { FilterFields } from "./filter-fields";
-import { Input } from "@/components/ui/input";
+ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FilterFields } from "./filter-fields";
+
+interface CoworkingSearchProps {
+  onSubmit: (data: TSearchForm) => void; 
+}
 
 
-export const CoworkingSearch = () => {
+export const CoworkingSearch: React.FC<CoworkingSearchProps> = ({ onSubmit }) => {
   const form = useForm<TSearchForm>({
     resolver: zodResolver(searchShema),
     defaultValues: {
@@ -18,8 +22,9 @@ export const CoworkingSearch = () => {
     }
   })
   const handlerSubmitForm: SubmitHandler<TSearchForm> = (data) => {
-    console.log(data);
+    onSubmit(data);  
   };
+
 
   return (
     <Form {...form}>
